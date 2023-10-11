@@ -16,7 +16,8 @@ class InfoMessage:
             f'Длительность: {self.duration:.3f} ч.; '
             f'Дистанция: {self.distance:.3f} км; '
             f'Ср. скорость: {self.speed:.3f} км/ч; '
-            f'Потрачено ккал: {self.calories:.3f}.')
+            f'Потрачено ккал: {self.calories:.3f}.'
+        )
         return message_template.format(**asdict(self))
 
 
@@ -76,7 +77,7 @@ class SportsWalking(Training):
     CALORIES_MEAN_SPEED_SHIFT = 0.029
     MEAN_SPEED_CONVERTER = 0.278
     HEIGHT_CONVERTER = 100
-    
+
     def __init__(self, action: int, duration: float, weight: float,
                  height: float):
         super().__init__(action, duration, weight)
@@ -88,7 +89,8 @@ class SportsWalking(Training):
              + ((self.get_mean_speed() * self.MEAN_SPEED_CONVERTER)**2
                 / (self.height / self.HEIGHT_CONVERTER))
                 * self.CALORIES_MEAN_SPEED_SHIFT * self.weight)
-            * (self.duration * self.MINUTES_IN_HOUR))
+            * (self.duration * self.MINUTES_IN_HOUR)
+        )
 
 
 class Swimming(Training):
@@ -104,13 +106,14 @@ class Swimming(Training):
         self.count_pool = count_pool
 
     def get_mean_speed(self) -> float:
-        return (
-            self.length_pool * self.count_pool / self.M_IN_KM / self.duration)
+        return (self.length_pool * self.count_pool
+                / self.M_IN_KM / self.duration)
 
     def get_spent_calories(self) -> float:
         return (
             (self.get_mean_speed() + self.MEAN_SPEED_SHIFT)
-            * self.MEAN_SPEED_MULTIPLIER * self.weight * self.duration)
+            * self.MEAN_SPEED_MULTIPLIER * self.weight * self.duration
+        )
 
 
 def read_package(workout_type: str, data: list) -> Training:
